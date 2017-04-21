@@ -1,0 +1,1001 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for node-npmtest-homebridge-websocket/node_modules/homebridge-websocket/lib/websocket.js</title>
+    <meta charset="utf-8">
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Arial, Helvetica;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            height: 160px;
+            padding: 0 1em 0 1em;
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 170px;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { color: #000; }
+        div.coverage-summary a:visited { color: #333; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1 style="font-weight: bold;">
+        <a href="https://github.com/npmtest/node-npmtest-homebridge-websocket">npmtest-homebridge-websocket (v0.0.1)</a>
+    </h1>
+    <h1>Code coverage report for <span class="entity">node-npmtest-homebridge-websocket/node_modules/homebridge-websocket/lib/websocket.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">11.76% <small>(16 / 136)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">0% <small>(0 / 73)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">0% <small>(0 / 18)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">11.85% <small>(16 / 135)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../../index.html">All files</a> &#187; <a href="index.html">node-npmtest-homebridge-websocket/node_modules/homebridge-websocket/lib/</a> &#187; websocket.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
+&nbsp;
+var util = require('util');
+var path = require('path');
+var Utils = require('./utils.js').Utils;
+var port, plugin_name, accessories, Characteristic, addAccessory, removeAccessory, getAccessories;
+var latest, get_timeout, set_timeout, pre_name, pre_c;
+&nbsp;
+var WebSocketServer = require('ws').Server,
+  http = require('http'),
+  express = require('express'),
+  app = express();
+  
+module.exports = {
+  Websocket: Websocket
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function Websocket(params) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  this.log = params.log;</span>
+<span class="cstat-no" title="statement not covered" >  port = params.port;</span>
+<span class="cstat-no" title="statement not covered" >  plugin_name = params.plugin_name;</span>
+<span class="cstat-no" title="statement not covered" >  accessories = params.accessories;</span>
+<span class="cstat-no" title="statement not covered" >  Characteristic = params.Characteristic;</span>
+<span class="cstat-no" title="statement not covered" >  addAccessory = params.addAccessory;</span>
+<span class="cstat-no" title="statement not covered" >  removeAccessory = params.removeAccessory;</span>
+<span class="cstat-no" title="statement not covered" >  getAccessories = params.getAccessories;</span>
+    
+<span class="cstat-no" title="statement not covered" >  this.ws;</span>
+}
+&nbsp;
+Websocket.prototype.startServer = <span class="fstat-no" title="function not covered" >function() {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var server = http.createServer(app);</span>
+<span class="cstat-no" title="statement not covered" >  server.listen(port, <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >    this.log("url %j", server.address());</span>
+  }.bind(this));
+  
+<span class="cstat-no" title="statement not covered" >  var wsServer = new WebSocketServer({server: server});</span>
+  
+<span class="cstat-no" title="statement not covered" >  wsServer.on('connection', <span class="fstat-no" title="function not covered" >function(ws) {</span></span>
+  
+<span class="cstat-no" title="statement not covered" >    this.ws = ws;</span>
+    
+<span class="cstat-no" title="statement not covered" >    this.ws.on('open', <span class="fstat-no" title="function not covered" >function open() {</span>  // no event ?</span>
+<span class="cstat-no" title="statement not covered" >      this.log.debug("on.open");  </span>
+    }.bind(this));
+    
+<span class="cstat-no" title="statement not covered" >    this.ws.on('message', <span class="fstat-no" title="function not covered" >function message(data) {</span></span>
+      //this.log.debug("on.message: %s", data);
+<span class="cstat-no" title="statement not covered" >      this.onMessage(data);</span>
+    }.bind(this));
+    
+<span class="cstat-no" title="statement not covered" >    this.ws.on('close', <span class="fstat-no" title="function not covered" >function close() {</span></span>
+<span class="cstat-no" title="statement not covered" >      this.log("on.close client ip %s disconnected", ws.upgradeReq.connection.remoteAddress);</span>
+    }.bind(this));
+    
+<span class="cstat-no" title="statement not covered" >    this.ws.on('error', <span class="fstat-no" title="function not covered" >function error(e) {</span></span>
+<span class="cstat-no" title="statement not covered" >      this.log.error("on.error %s", e.message);  </span>
+    }.bind(this))
+    
+<span class="cstat-no" title="statement not covered" >    set_timeout = setTimeout(<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >      this.log("client ip %s connected", ws.upgradeReq.connection.remoteAddress);</span>
+    }.bind(this), 500);
+          
+  }.bind(this));
+}
+&nbsp;
+Websocket.prototype.onMessage = <span class="fstat-no" title="function not covered" >function(data) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var msg = JSON.parse(data);</span>
+<span class="cstat-no" title="statement not covered" >  var topic = msg.topic;</span>
+<span class="cstat-no" title="statement not covered" >  var accessory = msg.payload;</span>
+<span class="cstat-no" title="statement not covered" >  var result = {};</span>
+  
+<span class="cstat-no" title="statement not covered" >  switch (topic) {</span>
+    case "add":
+    case "addAccessory":
+<span class="cstat-no" title="statement not covered" >      this.log.debug("onMessage add %s", JSON.stringify(accessory, null, 2));</span>
+<span class="cstat-no" title="statement not covered" >      addAccessory(accessory);</span>
+<span class="cstat-no" title="statement not covered" >      break;</span>
+    
+    case "remove":
+    case "removeAccessory":
+<span class="cstat-no" title="statement not covered" >      removeAccessory(accessory.name);</span>
+<span class="cstat-no" title="statement not covered" >      break;</span>
+    
+    case "set":
+    case "setValue":
+      //this.log.debug("onMessage setValue %s", JSON.stringify(accessory));
+<span class="cstat-no" title="statement not covered" >      this.log.debug("setValue %s", JSON.stringify(accessory));</span>
+<span class="cstat-no" title="statement not covered" >      result = this.validate(accessory);</span>
+      
+<span class="cstat-no" title="statement not covered" >      if (result.isValid) {</span>
+<span class="cstat-no" title="statement not covered" >        accessories[accessory.name].save_and_setValue("websocket", accessory.characteristic, result.value);</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        this.log.warn("setValue %s", result.message);</span>
+<span class="cstat-no" title="statement not covered" >        this.sendAck(false, result.message);</span>
+      }
+<span class="cstat-no" title="statement not covered" >      break;</span>
+    
+    case "callback":
+<span class="cstat-no" title="statement not covered" >      this.log.debug("callback %s", JSON.stringify(accessory));</span>
+      
+<span class="cstat-no" title="statement not covered" >        result = this.validate(accessory);</span>
+        
+<span class="cstat-no" title="statement not covered" >        if (result.isValid) {</span>
+<span class="cstat-no" title="statement not covered" >          accessories[accessory.name].saveValue(accessory.characteristic, result.value);</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >          this.log.error("onMessage %s", result.message);</span>
+<span class="cstat-no" title="statement not covered" >          this.sendAck(false, result.message);</span>
+        }        
+<span class="cstat-no" title="statement not covered" >      break;</span>
+      
+    case "getAccessories":
+    case "getAccessory":
+    case "get":
+<span class="cstat-no" title="statement not covered" >      var name;</span>
+<span class="cstat-no" title="statement not covered" >      this.log.debug("onMessage get %s", JSON.stringify(accessory));</span>
+      
+<span class="cstat-no" title="statement not covered" >      if (typeof(accessory.name) !== "undefined") {</span>
+<span class="cstat-no" title="statement not covered" >        name = accessory.name;</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        name = "all";</span>
+      }
+      
+<span class="cstat-no" title="statement not covered" >      if (typeof(accessories[name]) !== "undefined" || name === "all") {</span>
+<span class="cstat-no" title="statement not covered" >        getAccessories(name);</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        var message = "name '" + name + "' undefined.";</span>
+<span class="cstat-no" title="statement not covered" >        this.log.warn("onMessage.get %s", message);</span>
+<span class="cstat-no" title="statement not covered" >        this.sendAck(false, message);</span>
+      }
+<span class="cstat-no" title="statement not covered" >      break;</span>
+    
+    default:
+<span class="cstat-no" title="statement not covered" >      var message = "topic '" + topic + "' unkown.";</span>
+<span class="cstat-no" title="statement not covered" >      this.log.warn("onMessage topic %s", message);</span>
+<span class="cstat-no" title="statement not covered" >      this.sendAck(false, message);</span>
+  }
+}
+&nbsp;
+Websocket.prototype.validate = <span class="fstat-no" title="function not covered" >function(accessory) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var name = accessory.name;</span>
+<span class="cstat-no" title="statement not covered" >  var c = accessory.characteristic;</span>
+<span class="cstat-no" title="statement not covered" >  var value = accessory.value;</span>
+  
+<span class="cstat-no" title="statement not covered" >  var isValid = false;</span>
+<span class="cstat-no" title="statement not covered" >  var message = "";</span>
+  
+<span class="cstat-no" title="statement not covered" >  if(typeof(accessories[name]) === "undefined") {</span>
+<span class="cstat-no" title="statement not covered" >    message = "name '" + name + "' undefined.";</span>
+  } else <span class="cstat-no" title="statement not covered" >if (typeof(Characteristic[c]) !== "function") {</span>
+<span class="cstat-no" title="statement not covered" >      message = "characteristic '" + c + "' undefined.";</span>
+  } else <span class="cstat-no" title="statement not covered" >if (typeof(accessory.value) === "undefined" || accessory.value === null) {</span>
+<span class="cstat-no" title="statement not covered" >      message = "name '" + name + "' value undefined.";</span>
+  } else <span class="cstat-no" title="statement not covered" >if (typeof(accessories[name].service.getCharacteristic(Characteristic[c])) === "undefined"){</span>
+<span class="cstat-no" title="statement not covered" >    message = "name '" + name + "' characteristic do not match.";</span>
+  } else {
+<span class="cstat-no" title="statement not covered" >    var result = {};</span>
+<span class="cstat-no" title="statement not covered" >    result = accessories[name].parseValue(c, value);</span>
+<span class="cstat-no" title="statement not covered" >    isValid = result.isValid;</span>
+<span class="cstat-no" title="statement not covered" >    value = result.value;</span>
+<span class="cstat-no" title="statement not covered" >    if (!isValid) {</span>
+<span class="cstat-no" title="statement not covered" >      message = "value '" + value + "' outside range";</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      message = "name '" + name + "' is valid.";</span>
+    }
+  }
+  
+<span class="cstat-no" title="statement not covered" >  return {isValid: isValid, message: message, value: value};</span>
+}
+&nbsp;
+Websocket.prototype.get = <span class="fstat-no" title="function not covered" >function(name, c, callback) {</span>
+  // callback not used
+  
+  // this.log.debug("get %s %s", name, c);
+  
+<span class="cstat-no" title="statement not covered" >  if (typeof(this.ws) !== "undefined" &amp;&amp; this.ws.OPEN) {</span>
+<span class="cstat-no" title="statement not covered" >    var data = {"topic": "get", "payload": {"name": name, "characteristic": c}};</span>
+<span class="cstat-no" title="statement not covered" >    this.sendData(data);</span>
+  } else {
+<span class="cstat-no" title="statement not covered" >    this.log.debug("get client disconnected.");</span>
+  }
+}
+&nbsp;
+Websocket.prototype.set = <span class="fstat-no" title="function not covered" >function(name, c, value, callback) {</span>
+ 
+<span class="cstat-no" title="statement not covered" >  if (typeof(this.ws) !== "undefined" &amp;&amp; this.ws.OPEN) {       </span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (c === "On") {</span>
+<span class="cstat-no" title="statement not covered" >      value = (value == 0 || value == false) ? false : true;</span>
+    }
+    
+<span class="cstat-no" title="statement not covered" >    var data = {"topic": "set", "payload": {"name": name, "characteristic": c, "value": value}};</span>
+    
+<span class="cstat-no" title="statement not covered" >    switch (c) {</span>
+      case "Brightness":
+      case "TargetPosition":
+      case "TargetHorizontalTiltAngle":
+      case "TargetVerticalTiltAngle":
+      case "TargetRelativeHumidity":
+      case "TargetTemperature":
+<span class="cstat-no" title="statement not covered" >        if (set_timeout &amp;&amp; name === pre_name &amp;&amp; c === pre_c) {</span>
+<span class="cstat-no" title="statement not covered" >          clearTimeout(set_timeout);</span>
+        }
+<span class="cstat-no" title="statement not covered" >        set_timeout = setTimeout(<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >          this.log.debug("set %s %s %s", name, c, value);</span>
+<span class="cstat-no" title="statement not covered" >          this.sendData(data);</span>
+        }.bind(this), 300);
+<span class="cstat-no" title="statement not covered" >        pre_name = name;</span>
+<span class="cstat-no" title="statement not covered" >        pre_c = c;</span>
+<span class="cstat-no" title="statement not covered" >        break;</span>
+        
+      default:
+<span class="cstat-no" title="statement not covered" >        this.log.debug("set %s %s %s", name, c, value);</span>
+<span class="cstat-no" title="statement not covered" >        this.sendData(data);</span>
+    }
+<span class="cstat-no" title="statement not covered" >    callback(); </span>// todo error handling
+  } else {
+<span class="cstat-no" title="statement not covered" >    this.log.debug("get client disconnected.");</span>
+<span class="cstat-no" title="statement not covered" >    callback("disconnected");</span>
+  }
+}
+&nbsp;
+Websocket.prototype.sendAccessories = <span class="fstat-no" title="function not covered" >function (accessories) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (typeof(this.ws) !== "undefined" &amp;&amp; this.ws.OPEN) {</span>
+<span class="cstat-no" title="statement not covered" >    var data = {"topic": "accessories", "payload": accessories};</span>
+<span class="cstat-no" title="statement not covered" >    this.sendData(data);</span>
+  } else {
+<span class="cstat-no" title="statement not covered" >    this.log.error("sendAck client disconnected.");</span>
+  }
+}
+&nbsp;
+Websocket.prototype.sendAck = <span class="fstat-no" title="function not covered" >function (ack, message) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (typeof(this.ws) !== "undefined" &amp;&amp; this.ws.OPEN) {</span>
+<span class="cstat-no" title="statement not covered" >    var data = {"topic":"response", "payload": {"ack": ack, "message": message}}; </span>
+<span class="cstat-no" title="statement not covered" >    this.sendData(data);</span>
+  } else {
+<span class="cstat-no" title="statement not covered" >    this.log.error("sendAck client disconnected.");</span>
+  }
+}
+&nbsp;
+Websocket.prototype.sendData = <span class="fstat-no" title="function not covered" >function(data) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (typeof(this.ws) !== "undefined" &amp;&amp; this.ws.OPEN) {</span>
+<span class="cstat-no" title="statement not covered" >    var j_data = JSON.stringify(data);</span>
+    
+<span class="cstat-no" title="statement not covered" >    this.log.debug("sendData %s", JSON.stringify(data)); </span>// JSON.stringify(data, null, 2));
+    
+<span class="cstat-no" title="statement not covered" >    this.ws.send(j_data, <span class="fstat-no" title="function not covered" >function ack(error) {</span></span>
+<span class="cstat-no" title="statement not covered" >      if (error) <span class="cstat-no" title="statement not covered" >this.log("sendData %s", error);</span></span>
+    }.bind(this));
+  }
+}
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a> at Fri Apr 21 2017 19:05:29 GMT+0000 (UTC)</div>
+</div>
+</body>
+</html>
